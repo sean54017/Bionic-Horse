@@ -1,3 +1,4 @@
+//緩慢直走
 function 初始狀態設定 () {
     strip = neopixel.create(DigitalPin.P12, 4, NeoPixelMode.RGB)
     strip.showColor(neopixel.hsl(0, 0, 0))

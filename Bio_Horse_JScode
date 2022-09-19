@@ -1,4 +1,4 @@
-//緩慢直走
+// 緩慢直走
 function 初始狀態設定 () {
     strip = neopixel.create(DigitalPin.P12, 4, NeoPixelMode.RGB)
     strip.showColor(neopixel.hsl(0, 0, 0))
@@ -174,5 +174,5 @@ let strip: neopixel.Strip = null
 初始狀態設定()
 basic.pause(1000)
 basic.forever(function () {
-	
+    直走()
 })

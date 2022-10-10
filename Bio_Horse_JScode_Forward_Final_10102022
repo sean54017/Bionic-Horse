@@ -1,0 +1,312 @@
+function 初始狀態設定 () {
+    Status = 0
+    關燈()
+    靜止站姿()
+    伺服機執行()
+}
+function 往前 () {
+    關燈()
+    if (Status == 0) {
+        // LF Lift
+        if (左前大腿 > 80) {
+            左前大腿 += -5
+        }
+        if (左前小腿 > 50) {
+            左前小腿 += -5
+        }
+        // LB Down
+        if (左後大腿 < 90) {
+            左後大腿 += 5
+        }
+        //Balance
+        if (Balance == 0){
+            右前大腿 += -2
+            // 右前小腿 += 1
+            右後大腿 += -2
+            右後小腿 += 1
+            Balance = 1
+        }
+        if (左前大腿 <= 80 && 左前小腿 <= 50 && 左後大腿 >= 90) {
+            Status = 1
+            Balance = 0
+        }
+    } else if (Status == 1) {
+        // LF Up
+        if (左前大腿 > 70) {
+            左前大腿 += -5
+        }
+        if (左前小腿 < 110) {
+            左前小腿 += 5
+        }
+        //Balance
+        if (Balance == 0) {
+            右前大腿 += -2
+            右前小腿 += 1
+            左後大腿 += 2
+            左後小腿 += -1
+            右後大腿 += -2
+            右後小腿 += 1
+            Balance = 1
+        }
+        if (左前大腿 <= 70 && 左前小腿 >= 110) {
+            Status = 2
+            Balance = 0
+        }
+    } else if (Status == 2) {
+        // LF Drop
+        if (左前大腿 < 80)
+            左前大腿 += 5
+        if (左前小腿 > 80) 
+            左前小腿 += -5
+        //Balance
+        if (Balance == 0) {
+            右前大腿 += -2
+            右前小腿 += 1
+            左後大腿 += 2
+            左後小腿 += -1
+            右後大腿 += -2
+            // 右後小腿 += 1
+            Balance = 1
+        }
+        if (左前大腿 >= 80 && 左前小腿 <= 80) {
+            Status = 3
+            Balance = 0
+        }
+    } else if (Status == 3) {
+        // LF Down
+        if (左前大腿 < 100) 
+            左前大腿 += 5
+        // RB Lift
+        if (右後大腿 > 45) {
+            右後大腿 += -5
+        }
+        if (右後小腿 > 30) {
+            右後小腿 += -5
+        }
+        //Balance
+        if (Balance == 0) {
+            右前大腿 += -2
+            右前小腿 += 1
+            左後大腿 += 2
+            左後小腿 += -1
+            Balance = 1
+        }
+        if (左前大腿 >= 100 && 右後大腿 <= 45 && 右後小腿 <= 30) {
+            Status = 4
+            Balance = 0
+        }
+    } else if (Status == 4) {
+        // RB Up
+        if (右後大腿 < 90) {
+            右後大腿 += 5
+        } 
+        //Balance
+        if (Balance == 0) {
+            左前大腿 += 2
+            左前小腿 += -1
+            右前大腿 += -2
+            右前小腿 += 1
+            左後大腿 += 2
+            左後小腿 += -1
+            Balance = 1
+        }
+        if (右後大腿 >= 90){
+            Status = 5
+            Balance = 0
+        }
+    } else if (Status == 5) {
+        // RB Drop
+        if (右後小腿 < 65) {
+            右後小腿 += 5
+        }
+        //Balance
+        if (Balance == 0) {
+            左前大腿 += 2
+            // 左前小腿 += -1
+            右前大腿 += -2
+            右前小腿 += 1
+            左後大腿 += 2
+            左後小腿 += -1
+            Balance = 1
+        }
+        if (右後小腿 >= 65) {
+            Status = 6
+            Balance = 0
+        }
+    } else if (Status == 6){
+        // RB Down
+        if (右後大腿 > 75) {
+            右後大腿 += -5
+        }
+        // RF Lift
+        if (右前大腿 < 115) {
+            右前大腿 += 5
+        }
+        if (右前小腿 < 140) {
+            右前小腿 += 5
+        }
+        //Balance
+        if (Balance == 0) {
+            左前大腿 += 2
+            // 左前小腿 += -1
+            左後大腿 += 2
+            左後小腿 += -1
+            Balance = 1
+        }
+        if (右後大腿 <= 75 && 右前大腿 >= 115 && 右前小腿 >= 140) {
+            Status = 7
+            Balance = 0
+        }
+    } else if (Status == 7) {
+        // RF Up
+        if (右前大腿 < 125) {
+            右前大腿 += 5
+        }
+        if (右前小腿 > 80) {
+            右前小腿 += -5
+        }
+        //Balance
+        if (Balance == 0) {
+            左前大腿 += 2
+            左前小腿 += -1
+            左後大腿 += 2
+            左後小腿 += -1
+            右後大腿 += -2
+            右後小腿 += 1
+            Balance = 1
+        }
+        if (右前大腿 >= 125 && 右前小腿 <= 80) {
+            Status = 8
+            Balance = 0
+        }
+    } else if (Status == 8) {
+        // RF Drop
+        if (右前大腿 > 115)
+            右前大腿 += -5
+        if (右前小腿 < 110) {
+            右前小腿 += 5
+        }
+        //Balance
+        if (Balance == 0) {
+            左前大腿 += 2
+            左前小腿 += -1
+            左後大腿 += 2
+            // 左後小腿 += -1
+            右後大腿 += -2
+            右後小腿 += 1
+            Balance = 1
+        }
+        if (右前大腿 <= 115 && 右前小腿 >= 110) {
+            Status = 9
+            Balance = 0
+        }
+    } else if (Status == 9) {
+        // RF Down
+        if (右前大腿 > 95) {
+            右前大腿 += -5
+        }
+        // LB Lift
+        if (左後大腿 < 120) {
+            左後大腿 += 5
+        }
+        if (左後小腿 < 145) {
+            左後小腿 += 5
+        }
+        //Balance
+        if (Balance == 0) {
+            左前大腿 += 2
+            左前小腿 += -1
+            右後大腿 += -2
+            右後小腿 += 1
+            Balance = 1
+        }
+        if (右前大腿 <= 95 && 左後大腿 >= 120 && 左後小腿 >= 145) {
+            Status = 10
+            Balance = 0
+        }
+    } else if (Status == 10) {
+        // LB Up
+        if (左後大腿 > 75) {
+            左後大腿 += -5
+        }
+        //Balance
+        if (Balance == 0) {
+            左前大腿 += 2
+            左前小腿 += -1
+            右前大腿 += -2
+            右前小腿 += 1
+            右後大腿 += -2
+            右後小腿 += 1
+            Balance = 1
+        }
+        if (左後大腿 <= 75) {
+            Status = 11
+            Balance = 0
+        }
+    } else if (Status == 11) {
+        // LB Drop
+        if (左後小腿 > 110) 
+            左後小腿 += -5
+        //Balance
+        if (Balance == 0) {
+            左前大腿 += 2
+            左前小腿 += -1
+            右前大腿 += -2
+            // 右前小腿 += 1
+            右後大腿 += -2
+            右後小腿 += 1
+            Balance = 1
+        }
+        if (左後小腿 <= 110) {
+            Status = 0
+            Balance = 0
+        }
+    }
+    伺服機執行()
+    basic.pause(1)
+}
+function 關燈() {
+    strip = neopixel.create(DigitalPin.P12, 4, NeoPixelMode.RGB)
+    strip.showColor(neopixel.hsl(0, 0, 0))
+}
+function 靜止站姿 () {
+    左前大腿 = 100
+    左前小腿 = 80
+    右前大腿 = 95
+    右前小腿 = 110
+    左後大腿 = 90
+    左後小腿 = 110
+    右後大腿 = 75
+    右後小腿 = 65
+}
+function 伺服機執行 () {
+    mbitbot.All_servo(
+    左前大腿,
+    左前小腿,
+    右前大腿,
+    右前小腿,
+    左後大腿,
+    左後小腿,
+    右後大腿,
+    右後小腿
+    )
+}
+let Balance = 0
+let 右前小腿 = 0
+let 右前大腿 = 0
+let 右後小腿 = 0
+let 右後大腿 = 0
+let 左後大腿 = 0
+let 左後小腿 = 0
+let 左前小腿 = 0
+let 左前大腿 = 0
+let Status = 0
+let strip: neopixel.Strip = null
+初始狀態設定()
+basic.pause(1000)
+
+basic.forever(function () {
+    往前()
+    // 直走()
+    // 靜止站姿()
+})
